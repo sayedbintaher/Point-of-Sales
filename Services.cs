@@ -23,6 +23,7 @@ namespace PosAPI
             //Service Registration for interfaces and classes 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
 
         }
     }

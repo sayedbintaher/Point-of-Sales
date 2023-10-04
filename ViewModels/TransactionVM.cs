@@ -6,7 +6,6 @@ namespace PosAPI.ViewModels
     public class TransactionCreateVM
     {
         public DateTime TransactionDate { get; set; }
-        public decimal TotalAmount { get; set; }
         public int PaymentMethodId { get; set; }
         public List<TransactionItemCreateVM> Items { get; set; }
     }
@@ -16,6 +15,7 @@ namespace PosAPI.ViewModels
         public DateTime TransactionDate { get; set; }
         public decimal TotalAmount { get; set; }
         public int PaymentMethodId { get; set; }
+        public List<TransactionItemCreateVM> Items { get; set; }
     }
     public class TransactionVM : CommonProperties
     {
@@ -24,5 +24,6 @@ namespace PosAPI.ViewModels
         public decimal TotalAmount { get; set; }
         public int PaymentMethodId { get; set; }
         public string PaymentMethodName { get; set; }
+        public List<TransactionItemVM> Items { get; set; }
     }
 }
