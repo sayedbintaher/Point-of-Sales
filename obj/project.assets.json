@@ -3551,19 +3551,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sayedbintaher\\.nuget\\packages\\": {}
+    "C:\\Users\\sayed\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Sayed\\PosAPI\\PosAPI.csproj",
+      "projectUniqueName": "D:\\PointOfSales(POS) Project\\PosAPI\\PosAPI.csproj",
       "projectName": "PosAPI",
-      "projectPath": "d:\\Sayed\\PosAPI\\PosAPI.csproj",
-      "packagesPath": "C:\\Users\\sayedbintaher\\.nuget\\packages\\",
-      "outputPath": "d:\\Sayed\\PosAPI\\obj\\",
+      "projectPath": "D:\\PointOfSales(POS) Project\\PosAPI\\PosAPI.csproj",
+      "packagesPath": "C:\\Users\\sayed\\.nuget\\packages\\",
+      "outputPath": "D:\\PointOfSales(POS) Project\\PosAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\sayedbintaher\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sayed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3669,4 +3674,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.js
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
