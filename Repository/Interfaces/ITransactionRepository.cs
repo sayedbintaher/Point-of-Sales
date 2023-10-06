@@ -9,7 +9,7 @@ namespace PosAPI.Repository.Interfaces
 {
     public interface ITransactionRepository
     {
-        Task<ServiceResponse> AddTransaction(TransactionCreateVM model);
+        Task<object> AddTransaction(TransactionCreateVM model);
         Task<TransactionVM> GetTransactionById(int id);
     }
 }

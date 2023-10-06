@@ -1,13 +1,18 @@
 ﻿using PosAPI.ViewModels.Common;
+using System.Text.Json.Serialization;
 
 namespace PosAPI.ViewModels
 {
 
     public class TransactionCreateVM
     {
+        public string FullName { get; set; }
+        public string PhoneNo { get; set; }
         public DateTime TransactionDate { get; set; }
         public int PaymentMethodId { get; set; }
         public List<TransactionItemCreateVM> Items { get; set; }
+        [JsonIgnore]
+        public Decimal TotalAmount { get; set; }
     }
     public class TransactionUpdateVM
     {

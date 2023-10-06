@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Mvc;
 using PosAPI.Repository.Interfaces;
 using PosAPI.Utilities;
@@ -15,12 +17,13 @@ namespace PosAPI.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionRepository _transactionRepository;
+
         public TransactionController(ITransactionRepository transactionRepository)
         {
             _transactionRepository = transactionRepository;
         }
         [HttpPost]
-        public async Task<IActionResult> ConfirmOrder(TransactionCreateVM transaction)
+        public async Task<object> ConfirmOrder(TransactionCreateVM transaction)
         {
             try
             {
@@ -28,7 +31,8 @@ namespace PosAPI.Controllers
                 if (validationResult.IsValid)
                 {
                     var response = await _transactionRepository.AddTransaction(transaction);
-                    return StatusCode((int)response.StatusCode, response);
+                    //GenerateReport(response.Data);
+                    return response;
                 }
                 else
                 {
@@ -60,5 +64,7 @@ namespace PosAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, Utility.GetInternalServerErrorMsg(ex));
             }
         }
+
+
     }
 }

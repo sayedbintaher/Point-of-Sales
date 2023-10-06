@@ -8,18 +8,10 @@ namespace PosAPI.Validator
         public CustomerCreateValidator()
         {
             //Validation for FirstName
-            RuleFor(x => x.FirstName)
+            RuleFor(x => x.FullName)
              .NotEmpty()
-             .Length(3, 100)
-             .WithMessage("Product name is required and must be between 3 to 100 characters long.")
-             .Must(value => !value.StartsWith(" ") && !value.EndsWith(" "))
-             .WithMessage("{PropertyName} cannot have leading or trailing spaces.");
-
-            //Validation for LastName
-            RuleFor(x => x.LastName)
-             .NotEmpty()
-             .Length(3, 100)
-             .WithMessage("Product name is required and must be between 3 to 100 characters long.")
+             .Length(3, 300)
+             .WithMessage("Product name is required and must be between 3 to 300 characters long.")
              .Must(value => !value.StartsWith(" ") && !value.EndsWith(" "))
              .WithMessage("{PropertyName} cannot have leading or trailing spaces.");
 
@@ -75,21 +67,12 @@ namespace PosAPI.Validator
                 .GreaterThan(0).WithMessage("{PropertyName} must be greater than zero.");
 
             //Validation for FirstName
-            RuleFor(x => x.FirstName)
+            RuleFor(x => x.FullName)
              .NotEmpty()
-             .Length(3, 100)
-             .WithMessage("Product name is required and must be between 3 to 100 characters long.")
+             .Length(3, 300)
+             .WithMessage("Product name is required and must be between 3 to 300 characters long.")
              .Must(value => !value.StartsWith(" ") && !value.EndsWith(" "))
              .WithMessage("{PropertyName} cannot have leading or trailing spaces.");
-
-            //Validation for LastName
-            RuleFor(x => x.LastName)
-             .NotEmpty()
-             .Length(3, 100)
-             .WithMessage("Product name is required and must be between 3 to 100 characters long.")
-             .Must(value => !value.StartsWith(" ") && !value.EndsWith(" "))
-             .WithMessage("{PropertyName} cannot have leading or trailing spaces.");
-
 
             //Validation for Email
             RuleFor(x => x.Email)

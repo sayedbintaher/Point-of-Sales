@@ -17,13 +17,14 @@ namespace PosAPI.Utilities
             CreateMap<Customer, CustomerCreateVM>().ReverseMap();
             CreateMap<Customer, CustomerUpdateVM>().ReverseMap();
             CreateMap<Customer, CustomerVM>().ReverseMap();
+            CreateMap<Customer, TransactionCreateVM>().ReverseMap();
 
             //Mapper for Transaction
             CreateMap<Transaction, TransactionCreateVM>().ReverseMap();
             CreateMap<Transaction, TransactionUpdateVM>().ReverseMap();
             CreateMap<Transaction, TransactionVM>().ReverseMap();
 
-             //Mapper for Transaction Items
+            //Mapper for Transaction Items
             CreateMap<TransactionItems, TransactionItemCreateVM>().ReverseMap();
             CreateMap<TransactionItems, TransactionItemUpdateVM>().ReverseMap();
             CreateMap<TransactionItems, TransactionItemVM>().ReverseMap();
