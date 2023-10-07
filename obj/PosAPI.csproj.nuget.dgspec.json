@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PointOfSales(POS) Project\\PosAPI\\PosAPI.csproj": {}
+    "D:\\Sayed\\PosAPI\\PosAPI.csproj": {}
   },
   "projects": {
-    "D:\\PointOfSales(POS) Project\\PosAPI\\PosAPI.csproj": {
+    "D:\\Sayed\\PosAPI\\PosAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PointOfSales(POS) Project\\PosAPI\\PosAPI.csproj",
+        "projectUniqueName": "D:\\Sayed\\PosAPI\\PosAPI.csproj",
         "projectName": "PosAPI",
-        "projectPath": "D:\\PointOfSales(POS) Project\\PosAPI\\PosAPI.csproj",
-        "packagesPath": "C:\\Users\\sayed\\.nuget\\packages\\",
-        "outputPath": "D:\\PointOfSales(POS) Project\\PosAPI\\obj\\",
+        "projectPath": "D:\\Sayed\\PosAPI\\PosAPI.csproj",
+        "packagesPath": "C:\\Users\\jony\\.nuget\\packages\\",
+        "outputPath": "D:\\Sayed\\PosAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\sayed\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\jony\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
