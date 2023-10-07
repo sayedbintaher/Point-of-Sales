@@ -32,11 +32,13 @@ namespace PosAPI.Controllers
                 {
                     var response = await _transactionRepository.AddTransaction(transaction);
                     //GenerateReport(response.Data);
+                    var typeOfResponse = response.GetType();
                     return response;
                 }
                 else
                 {
                     var response = Utility.GetValidationFailedMsg(FluentValidationHelper.GetErrorMessage(validationResult.Errors));
+                    var typeOfResponse = response.GetType();
                     return StatusCode((int)response.StatusCode, response);
                 }
             }

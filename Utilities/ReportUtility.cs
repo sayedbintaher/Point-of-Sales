@@ -16,28 +16,13 @@ namespace PosAPI.Utilities
             return renderType;
         }
 
-        public static string GenerateReportName(string fileType)
+        public static string GenerateReportName(string InvoiceNo , string fileType)
         {
-            var randomSeq = GenerateRandomNumberSequence(6);
             string? doctype = fileType.ToUpper() switch
             {
                 "PDF" => "pdf"
             };
-            return $"{randomSeq}.{doctype}";
-        }
-
-        public static string GenerateRandomNumberSequence(int length)
-        {
-            Random random = new Random();
-            string result = "";
-
-            for (int i = 0; i < length; i++)
-            {
-                int randomNumber = random.Next(0, 10); // Generate a random number between 0 and 9
-                result += randomNumber.ToString();
-            }
-
-            return result;
+            return $"{InvoiceNo}.{doctype}";
         }
     }
 }

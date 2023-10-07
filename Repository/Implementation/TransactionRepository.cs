@@ -30,35 +30,46 @@ namespace PosAPI.Repository.Implementation
         private readonly IUnitOfWork _unitOfWork;
         private readonly DapperContext _dapper;
         private readonly IWebHostEnvironment _host;
-        public TransactionRepository(IMapper mapper, ApplicationDbContext db, IUnitOfWork unitOfWork, DapperContext dapper, IWebHostEnvironment host)
+        private readonly IReportRepository _report;
+        public TransactionRepository(IMapper mapper, ApplicationDbContext db, IUnitOfWork unitOfWork, DapperContext dapper, IWebHostEnvironment host, IReportRepository report)
         {
             _mapper = mapper;
             _db = db;
             _unitOfWork = unitOfWork;
             _dapper = dapper;
             _host = host;
+            _report = report;
         }
         public async Task<object> AddTransaction(TransactionCreateVM model)
         {
-            var customerExist = await _db.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.PhoneNo == model.PhoneNo && x.StatusId == (byte)StatusId.Active);
-            if (customerExist != null)
-            {
-                return Utility.GetAlreadyExistMsg("Customer");
-            }
+
             //Customer Part Here
             var mapCustomer = _mapper.Map<Customer>(model);
-            mapCustomer.CreatedAt = CommonMethods.GetBDCurrentTime();
-            mapCustomer.CreatedBy = 1;
-            await _db.Customers.AddAsync(mapCustomer);
+            var customerExist = await _db.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.PhoneNo == model.PhoneNo);
+            if (customerExist == null)
+            { 
+                mapCustomer.CreatedAt = CommonMethods.GetBDCurrentTime();
+                mapCustomer.CreatedBy = 1;
+                mapCustomer.StatusId = (byte)StatusId.Active;
+                await _db.Customers.AddAsync(mapCustomer);
+            }
 
             //Transaction Part 
             var totalAmount = model.Items.Sum(x => x.SubTotal);
-            model.TotalAmount = totalAmount;
             var mappedModel = _mapper.Map<Transaction>(model);
+            mappedModel.TotalAmount = totalAmount;
+            mappedModel.InvoiceNo = GenerateRandomNumberSequence(6);
             mappedModel.CreatedBy = 1;
             mappedModel.CreatedAt = CommonMethods.GetBDCurrentTime();
             mappedModel.StatusId = (byte)StatusId.Active;
-            mappedModel.Customer = mapCustomer;
+            if(customerExist != null)
+            {
+                mappedModel.CustomerId = customerExist.Id;
+            }
+            else
+            {
+                mappedModel.Customer = mapCustomer;
+            }
 
             await _db.Transactions.AddAsync(mappedModel);
 
@@ -69,6 +80,10 @@ namespace PosAPI.Repository.Implementation
                 if (product == null)
                 {
                     return Utility.GetValidationFailedMsg("Product not found");
+                }
+                if(product.Stock < item.Quantity && product.Stock <= 0)
+                {
+                    return Utility.GetValidationFailedMsg("Product not enough in stock");
                 }
                 mappedItem.CreatedBy = 1;
                 mappedItem.SubTotal = product.Price * item.Quantity;
@@ -81,7 +96,7 @@ namespace PosAPI.Repository.Implementation
                 await _db.TransactionItems.AddAsync(mappedItem);
             }
             await _unitOfWork.CommitAsync();
-            var reportResult = GenerateReport(model);
+            var reportResult = await _report.GetInvoiceReport(mappedModel.Id);
             return reportResult;
         }
 
@@ -97,32 +112,22 @@ namespace PosAPI.Repository.Implementation
             return transaction;
         }
 
-        public object GenerateReport(TransactionCreateVM model)
+        public static string GenerateRandomNumberSequence(int length)
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            string characterPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            Random random = new Random();
+            char[] randomChars = new char[length];
+            string result = "";
 
-            var data = model.Items;
-            string rdlcFilePath = Path.Combine(_host.ContentRootPath, "Reports", "TransactionDetailsReport.rdlc");
-            LocalReport report = new LocalReport(rdlcFilePath);
-            report.AddDataSource("TransactionDetailsDS", data);
-
-            var parameters = GetReportHeaderData(model.FullName, model.TransactionDate, model.PhoneNo);
-            var reportResult = report.Execute(ReportUtility.GetRenderType(), 1, parameters);
-
-            var result = new FileContentResult(reportResult.MainStream, MediaTypeNames.Application.Pdf);
-            result.FileDownloadName = ReportUtility.GenerateReportName("PDF");
-            return result;
-        }
-
-        public Dictionary<string, string> GetReportHeaderData(string customerName, DateTime? TransactionDate, string PhoneNo)
-        {
-            Dictionary<string, string> parameters = new()
+            for (int i = 0; i < length; i++)
             {
-                {"CustomerName",customerName },
-                {"InvoiceDate", TransactionDate != null ? TransactionDate.Value.ToString("dd-MMMM-yyyy") : ""},
-                {"PhoneNo", PhoneNo }
-            };
-            return parameters;
+                int randomNumber = random.Next(0, 10); // Generate a random number between 0 and 9
+                result += randomNumber.ToString();
+                int index = random.Next(0, characterPool.Length);
+                randomChars[i] = characterPool[index];
+            }
+            string str = new string(randomChars);
+            return str+"-"+result;
         }
     }
 }

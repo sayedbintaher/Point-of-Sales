@@ -24,7 +24,7 @@ namespace PosAPI
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
-
+            services.AddTransient<IReportRepository, ReportRepository>();
         }
     }
 }

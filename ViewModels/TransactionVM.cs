@@ -10,6 +10,8 @@ namespace PosAPI.ViewModels
         public string PhoneNo { get; set; }
         public DateTime TransactionDate { get; set; }
         public int PaymentMethodId { get; set; }
+        [JsonIgnore]
+        public string? InvoiceNo { get; set; }
         public List<TransactionItemCreateVM> Items { get; set; }
         [JsonIgnore]
         public Decimal TotalAmount { get; set; }

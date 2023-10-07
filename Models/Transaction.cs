@@ -10,6 +10,7 @@ namespace PosAPI.Models
         public DateTime TransactionDate { get; set; }
         public decimal TotalAmount { get; set; }
         public int PaymentMethodId { get; set; }
+        public string? InvoiceNo { get; set; }
         [ForeignKey("PaymentMethodId")]
         public virtual PaymentMethod PaymentMethod { get; set; }
         [ForeignKey("CustomerId")]
