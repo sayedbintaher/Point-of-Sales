@@ -14,5 +14,6 @@ namespace PosAPI.Models
         public virtual PaymentMethod PaymentMethod { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
+        public List<TransactionItems> TransactionItems { get; set; }
     }
 }

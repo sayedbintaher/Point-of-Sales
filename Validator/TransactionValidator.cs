@@ -11,11 +11,19 @@ namespace PosAPI.Validator
             RuleFor(x => x.PaymentMethodId)
                 .GreaterThan(0)
                 .WithMessage("Quantity must be greater than zero.");
-            
+
             //Validation for Items
             RuleFor(x => x.Items)
                 .NotEmpty()
                 .WithMessage("Transaction items are required.");
+
+            //Validation for FirstName
+            RuleFor(x => x.FullName)
+                .NotEmpty()
+                .Length(3, 300)
+                .WithMessage("Product name is required and must be between 3 to 300 characters long.")
+                .Must(value => !value.StartsWith(" ") && !value.EndsWith(" "))
+                .WithMessage("{PropertyName} cannot have leading or trailing spaces.");
 
             //Validation for Single Item
             RuleForEach(x => x.Items)
@@ -56,7 +64,7 @@ namespace PosAPI.Validator
                 .GreaterThan(0)
                 .WithMessage("Quantity must be greater than zero.");
 
-             //Validation for Items
+            //Validation for Items
             RuleFor(x => x.Items)
                 .NotEmpty()
                 .WithMessage("Transaction items are required.");

@@ -6,10 +6,7 @@ namespace PosAPI.Models
     public class Customer : BaseEntity
     {
         public int Id { get; set; }
-        [StringLength(100)]
-        public string FirstName { get; set; }
-        [StringLength(100)]
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         [StringLength(100)]
         public string? Email { get; set; }
         [StringLength(20)]

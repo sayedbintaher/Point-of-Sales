@@ -44,15 +44,9 @@ namespace PosAPI.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
                         .IsRequired()
@@ -316,7 +310,7 @@ namespace PosAPI.Migrations
                         .IsRequired();
 
                     b.HasOne("PosAPI.Models.Transaction", "Transaction")
-                        .WithMany()
+                        .WithMany("TransactionItems")
                         .HasForeignKey("TransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -324,6 +318,11 @@ namespace PosAPI.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Transaction");
+                });
+
+            modelBuilder.Entity("PosAPI.Models.Transaction", b =>
+                {
+                    b.Navigation("TransactionItems");
                 });
 #pragma warning restore 612, 618
         }
